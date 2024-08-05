@@ -16,15 +16,20 @@ jobs:
       run: |
         echo "JAVA_HOME=C:\Users\YAvanthika\jdk-17.0.12+7" >> $GITHUB_ENV
         echo "M2_HOME=C:\Users\YAvanthika\Downloads\apache-maven-3.9.8" >> $GITHUB_ENV
-        echo "PATH=\$M2_HOME\bin:\$JAVA_HOME\bin:\$PATH" >> $GITHUB_ENV
+        echo "PATH=\$M2_HOME\bin;\$JAVA_HOME\bin;\$PATH" >> $GITHUB_ENV
 
     - name: Check Maven Version
-      shell: pwsh
+      shell: powershell
       run: |
         $env:M2_HOME = 'C:\Users\YAvanthika\Downloads\apache-maven-3.9.8'
+        $env:JAVA_HOME = 'C:\Users\YAvanthika\jdk-17.0.12+7'
         $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
         mvn --version
 
     - name: Build with Maven
-      shell: pwsh
-      run: mvn -B package --file pom.xml
+      shell: powershell
+      run: |
+        $env:M2_HOME = 'C:\Users\YAvanthika\Downloads\apache-maven-3.9.8'
+        $env:JAVA_HOME = 'C:\Users\YAvanthika\jdk-17.0.12+7'
+        $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
+        mvn -B package --file pom.xml
