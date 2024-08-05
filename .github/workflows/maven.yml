@@ -9,21 +9,21 @@ jobs:
   build:
     runs-on: self-hosted
 
+    env:
+      M2_HOME: C:\Users\YAvanthika\Downloads\apache-maven-3.9.8
+      JAVA_HOME: C:\Users\YAvanthika\jdk-17.0.12+7
+      PATH: C:\Users\YAvanthika\Downloads\apache-maven-3.9.8\bin;C:\Users\YAvanthika\jdk-17.0.12+7\bin;${{ env.PATH }}
+
     steps:
     - uses: actions/checkout@v4
 
     - name: Check Maven Version
       shell: powershell
       run: |
-        $env:M2_HOME = 'C:\Users\YAvanthika\Downloads\apache-maven-3.9.8'
-        $env:JAVA_HOME = 'C:\Users\YAvanthika\jdk-17.0.12+7'
-        $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
         mvn --version
 
     - name: Build with Maven
       shell: powershell
       run: |
-        $env:M2_HOME = 'C:\Users\YAvanthika\Downloads\apache-maven-3.9.8'
-        $env:JAVA_HOME = 'C:\Users\YAvanthika\jdk-17.0.12+7'
-        $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
         mvn -B package --file pom.xml
+
