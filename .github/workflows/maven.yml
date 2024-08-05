@@ -12,12 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Java and Maven Environment Variables
-      run: |
-        echo "JAVA_HOME=C:\Users\YAvanthika\jdk-17.0.12+7" >> $GITHUB_ENV
-        echo "M2_HOME=C:\Users\YAvanthika\Downloads\apache-maven-3.9.8" >> $GITHUB_ENV
-        echo "PATH=\$M2_HOME\bin;\$JAVA_HOME\bin;\$PATH" >> $GITHUB_ENV
-
     - name: Check Maven Version
       shell: powershell
       run: |
