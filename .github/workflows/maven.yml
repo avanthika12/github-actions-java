@@ -18,14 +18,11 @@ jobs:
         echo "M2_HOME=C:\Users\YAvanthika\Downloads\apache-maven-3.9.8" >> $GITHUB_ENV
         echo "PATH=\$M2_HOME\bin:\$JAVA_HOME\bin:\$PATH" >> $GITHUB_ENV
 
-    - name: Print Environment Variables
-      run: |
-        echo "PATH: $PATH"
-        echo "M2_HOME: $M2_HOME"
-        echo "JAVA_HOME: $JAVA_HOME"
-
     - name: Check Maven Version
-      run: mvn --version
+      run: |
+        set M2_HOME=C:\Users\YAvanthika\Downloads\apache-maven-3.9.8
+        set PATH=%M2_HOME%\bin;%JAVA_HOME%\bin;%PATH%
+        mvn --version
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
