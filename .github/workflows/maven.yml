@@ -75,6 +75,10 @@ jobs:
         draft: false
         prerelease: false
 
+    - name: Create build directory
+      shell: powershell
+      run: New-Item -ItemType Directory -Force -Path build
+
     - name: Zip build artifacts
       shell: powershell
       run: Compress-Archive -Path target/* -DestinationPath build/build-artifacts.zip
