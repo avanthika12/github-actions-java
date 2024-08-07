@@ -12,6 +12,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set Environment Variables
+      shell: powershell
+      run: |
+        $env:M2_HOME = 'C:\Users\YAvanthika\Downloads\apache-maven-3.9.8'
+        $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21'
+        $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
     - name: Check Maven Version
       shell: powershell
       run: |
@@ -19,6 +35,7 @@ jobs:
         $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21'
         $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
         mvn --version
+
     - name: Build with Maven
       shell: powershell
       run: |
@@ -26,6 +43,14 @@ jobs:
         $env:JAVA_HOME = 'C:\Program Files\Java\jdk-21'
         $env:PATH = "$env:M2_HOME\bin;$env:JAVA_HOME\bin;$env:PATH"
         mvn -B package --file pom.xml
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: |
+          target/*.jar
+
 
 
 
